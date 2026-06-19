@@ -1,0 +1,40 @@
+# Claude Code
+CLAUDE.md
+
+# Work plan documents
+docs/
+
+# Gradle
+.gradle/
+build/
+bin/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+
+# Spring Boot
+HELP.md
+/target/
+
+# Log files
+*.log
+logs/

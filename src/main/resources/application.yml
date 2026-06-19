@@ -1,0 +1,58 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:price_monitor}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+notification:
+  slack:
+    enabled: ${SLACK_ENABLED:false}
+    webhook-url: ${SLACK_WEBHOOK_URL:}
+  telegram:
+    enabled: ${TELEGRAM_ENABLED:false}
+    bot-token: ${TELEGRAM_BOT_TOKEN:}
+    chat-id: ${TELEGRAM_CHAT_ID:}
+  kakao:
+    enabled: ${KAKAO_ENABLED:false}
+    access-token: ${KAKAO_ACCESS_TOKEN:}
+
+crawler:
+  request-delay-ms: ${CRAWLER_REQUEST_DELAY_MS:2000}
+  max-retry-count: ${CRAWLER_MAX_RETRY_COUNT:2}
+  retry-delay-ms: ${CRAWLER_RETRY_DELAY_MS:1000}
+
+scheduler:
+  cron: ${SCHEDULER_CRON:0 0 * * * *}
+  lock:
+    at-most-for: ${SCHEDULER_LOCK_AT_MOST_FOR:PT30M}   # 락 자동 해제 최대 시간 (프로세스 비정상 종료 대비)
+    at-least-for: ${SCHEDULER_LOCK_AT_LEAST_FOR:PT1M}  # 락 최소 유지 시간 (짧은 실행의 중복 방지)
+
+summary:
+  cron: ${SUMMARY_CRON:0 0 4 * * *}                    # 매일 새벽 4시 집계 + 정리
+  retention-days: ${SUMMARY_RETENTION_DAYS:30}         # 원본 가격 이력 보관 일수
+
+alert:
+  notification-cooldown-minutes: ${ALERT_COOLDOWN_MINUTES:60}
+  price-change-threshold: ${ALERT_PRICE_CHANGE_THRESHOLD:0.70}  # 직전 가격 대비 ±70% 초과 변동 시 이상치로 판단
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    com.davidlab.pricemonitor: INFO
