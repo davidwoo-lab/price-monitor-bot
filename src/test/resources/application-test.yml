@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+  sql:
+    init:
+      mode: never
+
+notification:
+  slack:
+    enabled: false
+    webhook-url: http://localhost/test-slack
+  telegram:
+    enabled: false
+    bot-token: test-bot-token
+    chat-id: test-chat-id
+  kakao:
+    enabled: false
+    access-token: test-access-token
+
+scheduler:
+  cron: 0 0 * * * *
+
+crawler:
+  request-delay-ms: 0
+
+alert:
+  notification-cooldown-minutes: 60
